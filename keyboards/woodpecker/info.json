@@ -19,7 +19,7 @@
         "rows": ["GP7", "GP9", "GP2", "GP3", "GP21"]
     },
     "usb": {
-        "device_version": "1gitgit.0.0",
+        "device_version": "1.0.0",
         "pid": "0x0001",
         "vid": "0x0666"
     },
@@ -64,6 +64,7 @@
                 {"matrix": [2, 9], "x": 9, "y": 2},
                 {"matrix": [2, 10], "x": 10, "y": 2},
                 {"matrix": [2, 11], "x": 11, "y": 2},
+
                 {"matrix": [3, 0], "x": 0, "y": 3},
                 {"matrix": [3, 1], "x": 1, "y": 3},
                 {"matrix": [3, 2], "x": 2, "y": 3},

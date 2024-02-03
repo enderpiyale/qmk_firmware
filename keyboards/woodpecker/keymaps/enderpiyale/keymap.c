@@ -72,6 +72,13 @@ const uint32_t PROGMEM unicode_map[] = {
 // clang-format on
 */
 
+#ifdef OLED_ENABLE
+bool oled_task_user(){
+    oled_set_cursor(0,1);
+    oled_write("Hello World!", false);
+    return false;
+}
+#endif
 
 enum lumberjack_layers {
   _QWERTY,
@@ -197,4 +204,4 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 )
 
 
-};
+}

@@ -1,8 +1,10 @@
 {
-    "manufacturer": "Ender Piyale",
+    "manufacturer": "ozkancelik",
     "keyboard_name": "woodpecker",
     "maintainer": "enderpiyale",
     "bootloader": "rp2040",
+    "processor": "RP2040",
+    "board": "GENERIC_RP_RP2040",
     "diode_direction": "COL2ROW",
     "features": {
         "bootmagic": true,
@@ -16,15 +18,13 @@
         "cols": ["GP0", "GP1", "GP4", "GP5", "GP6", "GP8", "GP23", "GP20", "GP26", "GP27", "GP28", "GP29" ],
         "rows": ["GP7", "GP9", "GP2", "GP3", "GP21"]
     },
-    "processor": "RP2040",
-    "url": "",
     "usb": {
-        "device_version": "1.0.0",
-        "pid": "0x0000",
-        "vid": "0xFEED"
+        "device_version": "1gitgit.0.0",
+        "pid": "0x0001",
+        "vid": "0x0666"
     },
     "layouts": {
-        "LAYOUT_ortho_5x12": {
+        "LAYOUT": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
                 {"matrix": [0, 1], "x": 1, "y": 0},
@@ -38,6 +38,7 @@
                 {"matrix": [0, 9], "x": 9, "y": 0},
                 {"matrix": [0, 10], "x": 10, "y": 0},
                 {"matrix": [0, 11], "x": 11, "y": 0},
+
                 {"matrix": [1, 0], "x": 0, "y": 1},
                 {"matrix": [1, 1], "x": 1, "y": 1},
                 {"matrix": [1, 2], "x": 2, "y": 1},
@@ -50,6 +51,7 @@
                 {"matrix": [1, 9], "x": 9, "y": 1},
                 {"matrix": [1, 10], "x": 10, "y": 1},
                 {"matrix": [1, 11], "x": 11, "y": 1},
+
                 {"matrix": [2, 0], "x": 0, "y": 2},
                 {"matrix": [2, 1], "x": 1, "y": 2},
                 {"matrix": [2, 2], "x": 2, "y": 2},
@@ -74,6 +76,7 @@
                 {"matrix": [3, 9], "x": 9, "y": 3},
                 {"matrix": [3, 10], "x": 10, "y": 3},
                 {"matrix": [3, 11], "x": 11, "y": 3},
+
                 {"matrix": [4, 0], "x": 0, "y": 4},
                 {"matrix": [4, 1], "x": 1, "y": 4},
                 {"matrix": [4, 2], "x": 2, "y": 4},

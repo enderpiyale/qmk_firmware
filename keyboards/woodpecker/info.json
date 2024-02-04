@@ -1,7 +1,7 @@
 {
-    "manufacturer": "enderpiyale",
+    "manufacturer": "--",
     "keyboard_name": "woodpecker",
-    "maintainer": "enderpiyale",
+    "maintainer": "--",
     "bootloader": "rp2040",
     "processor": "RP2040",
     "board": "GENERIC_RP_RP2040",
@@ -23,8 +23,11 @@
         "pid": "0x0001",
         "vid": "0x0666"
     },
+    "layout_aliases": {
+        "LAYOUT_woodpecker": "LAYOUT"
+    },
     "layouts": {
-        "LAYOUT_ortho_5x12": {
+        "LAYOUT": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
                 {"matrix": [0, 1], "x": 1, "y": 0},

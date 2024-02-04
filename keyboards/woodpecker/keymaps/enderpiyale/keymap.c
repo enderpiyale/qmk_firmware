@@ -73,13 +73,13 @@ const uint32_t PROGMEM unicode_map[] = {
 */
 
 enum lumberjack_layers {
-  _QWERTY,
+  _QWERTY = 0,
   _LOWER,
   // _RAISE,
+  _NUMPAD,
   _ADJUST,
   // _SPACE,
   // _SODA,
-  _NUMPAD,
   _MAC
 };
 
@@ -99,7 +99,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * | Ctrl |Adj|<>| Win  | Alt  |Lowr|,|Space | |Space | AltGR| Left | Down |  Up  | Rght |
  * `-----------------------------------------' `-----------------------------------------'
  */
-[_QWERTY] = LAYOUT_ortho_5x12(
+[_QWERTY] = LAYOUT_woodpecker(
     KC_GRV,KC_1,KC_2,KC_3,KC_4,KC_5,                    /*|*/   KC_6,KC_7,KC_8,KC_9,KC_0,KC_BSPC,
     KC_TAB,KC_Q,KC_W,KC_E,KC_R,KC_T,                    /*|*/   KC_Y,KC_U,KC_I,KC_O,KC_P,KC_DEL,
     LT(_NUMPAD, KC_ESC),KC_A,KC_S,KC_D,KC_F,KC_G,       /*|*/   KC_H,KC_J,KC_K,KC_L,KC_SCLN,KC_QUOT,
@@ -121,7 +121,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |      |      |      |      |      | Entr | | BkSp |      |  "[" |  "]" |  '   |  "   |
  * `-----------------------------------------' `-----------------------------------------'
  */
-[_LOWER] = LAYOUT_ortho_5x12(
+[_LOWER] = LAYOUT_woodpecker(
     _______,KC_F1,KC_F2,KC_F3,KC_F4,KC_F5,              /*|*/   _______,_______,BACKSLASH,VERTICAL_PIPE,KC_MINS,KC_EQL,
     _______,KC_F6,KC_F7,KC_F8,KC_F9,KC_F10,             /*|*/   _______,NUMBER_SIGN,KC_GRV,RALT(KC_LBRC),RALT(KC_RBRC),LSFT(KC_0),
     _______,KC_F11,KC_F12,_______,_______,_______,      /*|*/   KC_MINS,KC_UNDS,BACKTICK,KC_LBRC,KC_RBRC,KC_PLUS,
@@ -144,7 +144,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |      |      | VOLD | MUTE | Bksp | Del  | |Enter |Space |   0  |   .  |Enter |      |
  * `-----------------------------------------' `-----------------------------------------'
  */
-[_NUMPAD] = LAYOUT_ortho_5x12(
+[_NUMPAD] = LAYOUT_woodpecker(
     KC_GRV,_______,_______,KC_BTN3,_______,_______,     /*|*/   _______,KC_NUM,KC_PSLS,KC_PAST,KC_PMNS,KC_BSPC,
     _______,KC_ACL0,KC_BTN1,KC_MS_U,KC_BTN2,KC_WH_U,    /*|*/   _______,KC_P7,KC_P8,KC_P9,KC_PPLS,KC_PEQL,
     _______,KC_ACL1,KC_MS_L,KC_MS_D,KC_MS_R,KC_WH_D,    /*|*/   _______,KC_P4,KC_P5,KC_P6,KC_PPLS,KC_PDOT,
@@ -165,7 +165,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |      |      |      |      |      |      | |      |      |      |      |      |      |
  * `-----------------------------------------' `-----------------------------------------'
  */
-[_ADJUST] = LAYOUT_ortho_5x12(
+[_ADJUST] = LAYOUT_woodpecker(
     EE_CLR,QK_BOOT,_______,_______,_______,_______,     /*|*/   TG(_MAC),_______,_______,_______,_______,LOCKSCREEN,
     _______,_______,_______,_______,_______,_______,    /*|*/   _______,_______,_______,_______,_______,_______,
     _______,_______,_______,_______,_______,_______,    /*|*/   _______,_______,_______,_______,_______,_______,
@@ -187,7 +187,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |      |      | Alt  | CMD  |      |      | |      |      |      |      |      |      |
  * `-----------------------------------------' `-----------------------------------------'
  */
-[_MAC] = LAYOUT_ortho_5x12(
+[_MAC] = LAYOUT_woodpecker(
     _______,_______,_______,_______,_______,_______,    /*|*/   _______,_______,_______,_______,_______,_______,
     _______,_______,_______,_______,_______,_______,    /*|*/   _______,_______,_______,_______,_______,_______,
     _______,_______,_______,_______,_______,_______,    /*|*/   _______,_______,_______,_______,_______,_______,
@@ -198,11 +198,36 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
-#ifdef OLED_ENABLE
-bool oled_task_user() {
-    oled_set_cursor(0, 1);
-    oled_write("Hello World!", false);
 
-    return false;
+#ifdef OLED_ENABLE
+/*oled_rotation_t oled_init_user(oled_rotation_t rotation) {
+	return OLED_ROTATION_90;
+}
+*/
+bool oled_task_kb(void) {
+    if (!oled_task_user()) { return false; }
+        oled_write_P(PSTR("Tau.4 v1.0\n\n"), false);
+        oled_write_P(PSTR("Layer:\n"), false);
+
+        switch (get_highest_layer(layer_state)) {
+            case 0:
+                oled_write_P(PSTR("Default  "), false);
+                break;
+            case 1:
+                oled_write_P(PSTR("Lower   "), false);
+                break;
+            case 2:
+                oled_write_P(PSTR("Numpad    "), false);
+                break;
+            case 3:
+                oled_write_P(PSTR("Adjust    "), false);
+                break;
+            case 4:
+                oled_write_P(PSTR("Mac   "), false);
+                break;
+            default:
+                oled_write_P(PSTR("Undefined"), false);
+        }
+    return true;
 }
 #endif

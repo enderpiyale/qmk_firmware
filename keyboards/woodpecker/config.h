@@ -13,13 +13,15 @@
 
 #define OLED_PRE_CHARGE_PERIOD 0x22
 #define OLED_VCOM_DETECT 0x35
-#define OLED_TIMEOUT 60000
+#define OLED_TIMEOUT 30000
+#define OLED_FADE_OUT_INTERVAL 15
 
 #define I2C_DRIVER I2CD0
 #define I2C1_SCL_PIN GP13
 #define I2C1_SDA_PIN GP12
 #define OLED_BRIGHTNESS 128
 
+//#define OLED_FONT_H "lib/glcdfont.c"
 
 
 /*

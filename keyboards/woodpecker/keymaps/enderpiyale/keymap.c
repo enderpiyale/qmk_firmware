@@ -26,6 +26,7 @@ char wpm_str[10];
 // KC_COMM is Turkish o [öÖ] key
 // KC_DOT is Turkish c [çÇ] key
 
+
 // Custom shortcuts specific to Turkish layout
 #define CURLY_OPEN RALT(KC_7)
 #define CURLY_CLOSE RALT(KC_0)
@@ -39,7 +40,6 @@ char wpm_str[10];
 #define NUMBER_SIGN RALT(KC_3)
 #define LOCKSCREEN LCTL(LSFT(KC_PWR)) // Screen Lock shortcut for OSX
 
-/* 
 // Unicode Turkish characters, in case it's needed
 enum {
     TR_C, // ç
@@ -72,16 +72,12 @@ const uint32_t PROGMEM unicode_map[] = {
     [TR_O_L] = 0x00f6,
 };
 // clang-format on
-*/
 
 enum lumberjack_layers {
   _QWERTY = 0,
   _LOWER,
-  // _RAISE,
   _NUMPAD,
   _ADJUST,
-  // _SPACE,
-  // _SODA,
   _MAC
 };
 
@@ -202,17 +198,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 #ifdef OLED_ENABLE
 // WPM-responsive animation stuff here
-#    define IDLE_FRAMES 5
-#    define IDLE_SPEED 20  // below this wpm value your animation will idle
+#define IDLE_FRAMES 5
+#define IDLE_SPEED 10  // below this wpm value your animation will idle
 
 // #define PREP_FRAMES 1 // uncomment if >1
 
-#    define TAP_FRAMES 2
-#    define TAP_SPEED 40  // above this wpm value typing animation to trigger
+#define TAP_FRAMES 2
+#define TAP_SPEED 25  // above this wpm value typing animation to trigger
 
-#    define ANIM_FRAME_DURATION 200  // how long each frame lasts in ms
+#define ANIM_FRAME_DURATION 200  // how long each frame lasts in ms
 // #define SLEEP_TIMER 60000 // should sleep after this period of 0 wpm, needs fixing
-#    define ANIM_SIZE 636  // number of bytes in array, minimize for adequate firmware size, max is 1024
+#define ANIM_SIZE 636  // number of bytes in array, minimize for adequate firmware size, max is 1024
 
 uint32_t anim_timer         = 0;
 uint32_t anim_sleep         = 0;
@@ -306,40 +302,34 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 // Used to draw on to the oled screen
 bool oled_task_kb(void) {
     render_anim();  // renders pixelart
-
-    oled_set_cursor(0, 0);                            // sets cursor to (row, column) using charactar spacing (5 rows on 128x32 screen, anything more will overflow back to the top)
-    sprintf(wpm_str, "WPM:%03d", get_current_wpm());  // edit the string to change wwhat shows up, edit %03d to change how many digits show up
+    oled_set_cursor(0, 2);                            // sets cursor to (row, column) using charactar spacing (5 rows on 128x32 screen, anything more will overflow back to the top)
+    sprintf(wpm_str, "WPM:%02d", get_current_wpm());  // edit the string to change wwhat shows up, edit %03d to change how many digits show up
     oled_write(wpm_str, false);                       // writes wpm on top left corner of string
 
-/*
-    led_t led_state = host_keyboard_led_state();  // caps lock stuff, prints CAPS on new line if caps led is on
-    oled_set_cursor(0, 1);
-    oled_write_P(led_state.caps_lock ? PSTR("CAPS") : PSTR("       "), false);
-*/
-
+    oled_set_cursor(0, 0);
+    switch (get_highest_layer(layer_state)) {
+        case 0:
+            oled_write_P(PSTR("DEFAULT"), false);
+            break;
+        case 1:
+            oled_write_P(PSTR("LOWER "), false);
+            break;
+        case 2:
+            oled_write_P(PSTR("NUMPAD "), false);
+            break;
+        case 3:
+            oled_write_P(PSTR("ADJUST"), false);
+            break;
+        case 4:
+            oled_write_P(PSTR("MAC    "), false);
+            break;
+        default:
+            oled_write_P(PSTR("NAN"), false);
+        }
+    
     oled_set_cursor(0, 5);
     oled_write_ln("---------------------", false);
 
-    oled_write_P(PSTR("Layer: "), false);
-    switch (get_highest_layer(layer_state)) {
-        case 0:
-            oled_write_P(PSTR("Default"), false);
-            break;
-        case 1:
-            oled_write_P(PSTR("Lower"), false);
-            break;
-        case 2:
-            oled_write_P(PSTR("Numpad"), false);
-            break;
-        case 3:
-            oled_write_P(PSTR("Adjust"), false);
-            break;
-        case 4:
-            oled_write_P(PSTR("Mac"), false);
-            break;
-        default:
-            oled_write_P(PSTR("Undefined"), false);
-        }
     return true;
 }
 #endif

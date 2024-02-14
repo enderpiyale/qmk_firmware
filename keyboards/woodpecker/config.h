@@ -10,7 +10,6 @@
 /* OLED DRIVER CONFIG */
 #define OLED_DISPLAY_128X128
 #define OLED_IC OLED_IC_SH1107
-
 #define OLED_PRE_CHARGE_PERIOD 0x22
 #define OLED_VCOM_DETECT 0x35
 #define OLED_TIMEOUT 30000
@@ -21,13 +20,16 @@
 #define I2C1_SDA_PIN GP12
 #define OLED_BRIGHTNESS 128
 
-//#define OLED_FONT_H "lib/glcdfont.c"
-
+#define CIRQUE_PINNACLE_DIAMETER_MM 40
+#define CIRQUE_PINNACLE_TAP_ENABLE
+#define POINTING_DEVICE_GESTURES_SCROLL_ENABLE
+#define CIRQUE_PINNACLE_CURVED_OVERLAY 
 
 /*
- * Feature disable options
- *  These options are also useful to firmware size reduction.
- */
+#define POINTING_DEVICE_ROTATION_90
+#define POINTING_DEVICE_INVERT_X
+#define POINTING_DEVICE_INVERT_Y
+*/
 
 /* disable debug print */
 //#define NO_DEBUG

@@ -326,9 +326,6 @@ bool oled_task_kb(void) {
         default:
             oled_write_P(PSTR("NAN"), false);
         }
-    
-    oled_set_cursor(0, 5);
-    oled_write_ln("---------------------", false);
 
     return true;
 }

@@ -294,10 +294,13 @@ static void render_anim(void) {
     }
 }
 
+/*
 //Rotate Screen 180
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 	return OLED_ROTATION_180;
 }
+*/
+
 
 // Used to draw on to the oled screen
 bool oled_task_kb(void) {
